@@ -28,6 +28,4 @@ class ShortenedUrl < ActiveRecord::Base
     ShortenedUrl.create!({ :long_url => long_url, :shortened_url => shortened_url, :submitter_id => user.id })
   end
 
-
-
 end
