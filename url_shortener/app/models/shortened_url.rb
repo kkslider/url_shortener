@@ -2,7 +2,6 @@ require 'securerandom'
 require 'visit.rb'
 
 class ShortenedUrl < ActiveRecord::Base
-  # attr_accessible :title, :body
   attr_accessible :long_url, :short_url, :submitter_id
   validates :long_url, presence: true
   validates :short_url, presence: true
