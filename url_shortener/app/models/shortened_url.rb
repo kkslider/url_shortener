@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'visit.rb'
 
 class ShortenedUrl < ActiveRecord::Base
   # attr_accessible :title, :body
@@ -41,14 +42,16 @@ class ShortenedUrl < ActiveRecord::Base
   end
 
   def num_clicks
-    clicks_count = ShortenedUrl.find_by_short_url(self).length
+    Visit.where(["shortened_id = ?", self.id]).length
   end
 
   def num_uniques
-    uniques_count = (ShortenedUrl.find_by_short_url(self).uniq_by { |row| row.submitter_id }).length
+    #uniques_count = (ShortenedUrl.find_by_short_url(self).uniq_by { |row| row.submitter_id }).length
+    Visit.where(["shortened_id = ?", self.id]).count('user_id', :distinct => true)
   end
 
   def num_recent_uniques
+    Visit.where(["shortened_id = ?", self.id]).where(:created_at => (10.days.ago)..Time.now).count('user_id', :distinct => true)
   end
 
 end
