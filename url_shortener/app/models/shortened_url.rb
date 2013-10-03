@@ -4,7 +4,7 @@ class ShortenedUrl < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :long_url, :short_url, :submitter_id
   validates :long_url, presence: true
-  validates :short_url, uniqueness: true, presence: true
+  validates :short_url, presence: true
   validates :submitter_id, presence: true
 
   belongs_to(
@@ -13,6 +13,9 @@ class ShortenedUrl < ActiveRecord::Base
   :foreign_key => :submitter_id,
   :primary_key => :id
   )
+
+  has_many :visitors, :through => :visits, :source => :user
+
 
 
   def self.random_code(long_url)
