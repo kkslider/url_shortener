@@ -21,7 +21,7 @@ class ShortenedUrl < ActiveRecord::Base
   :primary_key => :id
   )
 
-  has_many :visitors, :through => :visits, :source => :user
+  has_many :visitors, :through => :visits, :source => :user, :uniq => true
 
 
 
