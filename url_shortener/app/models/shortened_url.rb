@@ -40,4 +40,15 @@ class ShortenedUrl < ActiveRecord::Base
     ShortenedUrl.create!({ :long_url => long_url, :short_url => short_url, :submitter_id => user.id })
   end
 
+  def num_clicks
+    clicks_count = ShortenedUrl.find_by_short_url(self).length
+  end
+
+  def num_uniques
+    uniques_count = (ShortenedUrl.find_by_short_url(self).uniq_by { |row| row.submitter_id }).length
+  end
+
+  def num_recent_uniques
+  end
+
 end
