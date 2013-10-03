@@ -4,7 +4,7 @@ require 'visit.rb'
 class ShortenedUrl < ActiveRecord::Base
   attr_accessible :long_url, :short_url, :submitter_id
   validates :long_url, presence: true
-  validates :short_url, presence: true
+  validates :short_url, presence: true, :uniqueness => true
   validates :submitter_id, presence: true
 
   belongs_to(
