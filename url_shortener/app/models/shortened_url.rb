@@ -28,7 +28,6 @@ class ShortenedUrl < ActiveRecord::Base
 
   def self.random_code(long_url)
     random_code = SecureRandom.urlsafe_base64[0..15]
-    # until ShortenedUrl.find_by_sql(["SELECT * FROM shortened_urls s WHERE s.short_url = ?", random_code]).empty?
     until !ShortenedUrl.find_by_short_url(random_code)
       random_code = SecureRandom.urlsafe_base64[0..15]
     end
@@ -46,7 +45,6 @@ class ShortenedUrl < ActiveRecord::Base
   end
 
   def num_uniques
-    #uniques_count = (ShortenedUrl.find_by_short_url(self).uniq_by { |row| row.submitter_id }).length
     Visit.where(["shortened_id = ?", self.id]).count('user_id', :distinct => true)
   end
 
