@@ -14,6 +14,13 @@ class ShortenedUrl < ActiveRecord::Base
   :primary_key => :id
   )
 
+  has_many(
+  :visits,
+  :class_name => "Visit",
+  :foreign_key => :shortened_id,
+  :primary_key => :id
+  )
+
   has_many :visitors, :through => :visits, :source => :user
 
 
