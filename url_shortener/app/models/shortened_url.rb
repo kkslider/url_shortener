@@ -23,8 +23,6 @@ class ShortenedUrl < ActiveRecord::Base
 
   has_many :visitors, :through => :visits, :source => :user, :uniq => true
 
-
-
   def self.random_code(long_url)
     random_code = SecureRandom.urlsafe_base64[0..15]
     until !ShortenedUrl.find_by_short_url(random_code)
