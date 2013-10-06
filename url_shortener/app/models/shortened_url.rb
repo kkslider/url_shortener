@@ -48,5 +48,4 @@ class ShortenedUrl < ActiveRecord::Base
   def num_recent_uniques
     visits.where(:created_at => (3.hours.ago)..Time.now).count('user_id', :distinct => true)
   end
-
 end
